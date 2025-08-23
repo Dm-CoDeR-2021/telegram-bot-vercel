@@ -84,7 +84,7 @@ def webhook():
     text = str(text)
     reply = message.get("reply_to_message")
 
-    if not reply:
+    if reply == False:
         if chat_id == 5859474607:
             for i in db:
                     for _i in i["key"]:
