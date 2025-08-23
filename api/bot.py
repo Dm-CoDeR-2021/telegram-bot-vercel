@@ -70,7 +70,7 @@ def send_message(chat_id, text):
 @app.get("/")
 def index():
     # Simple health check
-    return "ok new"
+    return "ok new1"
 
 @app.post("/")
 def webhook():
@@ -90,11 +90,12 @@ def webhook():
 
     send_message(chat_id,text)
     reply = message.get("reply_to_message")
-    
+
     if reply:
         # بررسی اینکه ریپلای روی پیام خود ربات باشه
         if reply["from"].get("id") == 8202290017:
             for i in db:
+                print(i)
                 if text.find(i["key"]) != -1:
                     if text.find(i["msg"]) != -1:
                         send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
