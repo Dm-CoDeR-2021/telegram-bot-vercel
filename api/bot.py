@@ -82,14 +82,15 @@ def webhook():
     chat_id = message["chat"]["id"]
     text = message.get("text", "")
     text = str(text)
-
-    # if text == "/start":
-    #     send_message(chat_id, "سلام! ربات فعاله ✅")
-    # elif text:
-    #     send_message(chat_id, f"شما گفتید: {text}")
+    
+    if "new_chat_members" in message:
+        for m in message["new_chat_members"]:
+            if m["is_bot"] and m["username"] == "Mobinmubot":
+                send_message(chat_id, "کیرم تو این گروه")
 
     reply = message.get("reply_to_message")
 
+    
     if reply:
         # بررسی اینکه ریپلای روی پیام خود ربات باشه
         if reply["from"].get("id") == 8202290017:
