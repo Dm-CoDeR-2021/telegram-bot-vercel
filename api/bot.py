@@ -83,6 +83,8 @@ def webhook():
     text = message.get("text", "")
     text = str(text)
     
+    send_message(chat_id, str(chat_id))
+    
     if "new_chat_members" in message:
         for m in message["new_chat_members"]:
             if m["is_bot"] and m["username"] == "Mobinmubot":
