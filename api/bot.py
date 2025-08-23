@@ -94,6 +94,7 @@ def webhook():
                             send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
                             return
     
+    
     if "new_chat_members" in message:
         for m in message["new_chat_members"]:
             if m["is_bot"] and m["username"] == "Mobinmubot":
