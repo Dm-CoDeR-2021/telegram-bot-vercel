@@ -70,7 +70,7 @@ def send_message(chat_id, text):
 @app.get("/")
 def index():
     # Simple health check
-    return "ok"
+    return "ok new"
 
 @app.post("/")
 def webhook():
