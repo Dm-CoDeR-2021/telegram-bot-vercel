@@ -14,7 +14,7 @@ TOKEN = os.environ.get("BOT_TOKEN", "")
 TELEGRAM_API = f"https://api.telegram.org/bot{TOKEN}"
 
 try:
-    with open("insults.json","r", encoding="utf-8") as f:
+    with open("api/insults.json","r", encoding="utf-8") as f:
         db = json.loads(f.read())
 except : {}
 
