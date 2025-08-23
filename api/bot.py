@@ -70,7 +70,7 @@ def send_message(chat_id, text):
 @app.get("/")
 def index():
     # Simple health check
-    return "ok new1"
+    return "ok new12"
 
 @app.post("/")
 def webhook():
@@ -88,15 +88,17 @@ def webhook():
     # elif text:
     #     send_message(chat_id, f"شما گفتید: {text}")
 
-    send_message(chat_id,text)
+    send_reply(chat_id,message["message_id"],text)
     reply = message.get("reply_to_message")
 
     if reply:
         # بررسی اینکه ریپلای روی پیام خود ربات باشه
         if reply["from"].get("id") == 8202290017:
+            send_reply(chat_id,message["message_id"],f"Reply kardi {db}")
             for i in db:
                 for _i in i["key"]:
                     if text.find(_i) != -1:
+                        send_reply(chat_id,message["message_id"],"1")
                         for __i in i["msg"]:
                             if text.find(__i) != -1:
                                 send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
