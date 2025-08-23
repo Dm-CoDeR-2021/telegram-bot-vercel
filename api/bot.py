@@ -98,9 +98,9 @@ def webhook():
             for i in db:
                 for _i in i["key"]:
                     if text.find(_i) != -1:
-                        send_reply(chat_id,message["message_id"],"1")
                         for __i in i["msg"]:
                             if text.find(__i) != -1:
+                                send_reply(chat_id,message["message_id"],"1")
                                 send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
                                 break
 
