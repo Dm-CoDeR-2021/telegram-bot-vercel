@@ -95,10 +95,11 @@ def webhook():
         # بررسی اینکه ریپلای روی پیام خود ربات باشه
         if reply["from"].get("id") == 8202290017:
             for i in db:
-                print(i)
-                if text.find(i["key"]) != -1:
-                    if text.find(i["msg"]) != -1:
-                        send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
-                        break
+                for _i in i["key"]:
+                    if text.find(_i) != -1:
+                        for __i in i["msg"]:
+                            if text.find(__i) != -1:
+                                send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
+                                break
 
     return jsonify(ok=True)
