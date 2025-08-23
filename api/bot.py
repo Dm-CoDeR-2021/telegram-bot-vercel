@@ -82,23 +82,22 @@ def webhook():
     chat_id = message["chat"]["id"]
     text = message.get("text", "")
     text = str(text)
-    
-    if chat_id == 5859474607:
-        for i in db:
-                for _i in i["key"]:
-                    if text.find(_i) != -1:
-                        for __i in i["msg"]:
-                            if text.find(__i) != -1:
-                                send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
-                                break
+    reply = message.get("reply_to_message")
+
+    if not reply:
+        if chat_id == 5859474607:
+            for i in db:
+                    for _i in i["key"]:
+                        if text.find(_i) != -1:
+                            for __i in i["msg"]:
+                                if text.find(__i) != -1:
+                                    send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
+                                    break
     
     if "new_chat_members" in message:
         for m in message["new_chat_members"]:
             if m["is_bot"] and m["username"] == "Mobinmubot":
                 send_message(chat_id, "کیرم تو این گروه")
-
-    reply = message.get("reply_to_message")
-
     
     if reply:
         # بررسی اینکه ریپلای روی پیام خود ربات باشه
