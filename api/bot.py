@@ -93,6 +93,7 @@ def webhook():
                         if text.find(__i) != -1:
                             send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
                             break
+                    break
     
     
     if "new_chat_members" in message:
@@ -110,5 +111,6 @@ def webhook():
                             if text.find(__i) != -1:
                                 send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
                                 break
+                        break
 
     return jsonify(ok=True)
