@@ -4,9 +4,6 @@ import requests
 import random
 import json
 import sys
-
-
-
 sys.path.append("api/")
 import db as database
 
@@ -89,17 +86,17 @@ def webhook():
     text = str(text)
     reply = message.get("reply_to_message")
 
-    # if message :
-    #     for i in db:
-    #         for _i in i["key"]:
-    #             if text.find(_i) != -1:
-    #                 for __i in i["msg"]:
-    #                     if text.find(__i) != -1:
-    #                         send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
-    #                         break
-    #                 break
+    if message["chat"]["type"] == "priavte":
+        for i in db:
+            for _i in i["key"]:
+                if text.find(_i) != -1:
+                    for __i in i["msg"]:
+                        if text.find(__i) != -1:
+                            send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
+                            break
+                    break
         
-    #     send_message(chat_id, message["from"])
+        send_message(chat_id, message["from"])
     
     
     if "new_chat_members" in message:
