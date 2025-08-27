@@ -100,4 +100,7 @@ def Delete(table = "users", eq = "id", eq_value = 0) -> int:
     except:
         return -1
 
+
+
+
 #print(Update(data={"name" : "ali"}))

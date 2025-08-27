@@ -72,7 +72,7 @@ def send_message(chat_id, text):
 @app.get("/")
 def index():
     # Simple health check
-    return "ok new12"
+    return "ok good"
 
 @app.post("/")
 def webhook():
@@ -103,14 +103,17 @@ def webhook():
                             send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
                             break
                     break
-        
-        res = database.Upsert(data={
-            "id": int(message["from"]["id"]),
-            "first_name": database.decode_unicode(message["from"]["first_name"]) if message["from"]["first_name"].find("\u1d") else message["from"]["first_name"],
-            "last_name": database.decode_unicode(message["from"].get("last_name")) if message["from"].get("last_name").find("\u1d") else message["from"].get("last_name"),
-            "username": str(message["from"]["username"])
-        })
-        send_message(chat_id, res)
+        try:
+            res = database.Upsert(data={
+                "id": int(message["from"]["id"]),
+                "first_name": database.decode_unicode(message["from"]["first_name"]) if message["from"]["first_name"].find("\u1d") else message["from"]["first_name"],
+                "last_name": database.decode_unicode(message["from"].get("last_name")) if message["from"].get("last_name").find("\u1d") else message["from"].get("last_name"),
+                "username": str(message["from"]["username"])
+            })
+
+            send_message(chat_id, res)
+        except Exception as e: 
+            send_message(chat_id, e)
     
     if str(reply) != "null" and message["chat"]["type"] != "private":
         if reply["from"].get("id") == 8202290017:
