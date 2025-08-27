@@ -81,7 +81,7 @@ def webhook():
     if not message:
         if "new_chat_members" in update:
             for m in update["new_chat_members"]:
-                if m["is_bot"] and m["username"] == "Mobinmubot":
+                if m["is_bot"] == True and m["username"] == "Mobinmubot":
                     send_message(update["chat"]["id"], "کیرم تو این گروه")
                     return jsonify(ok=True)
         else:
