@@ -91,8 +91,8 @@ def webhook():
             if m["is_bot"] and m["username"] == "Mobinmubot":
                 send_message(chat_id, "کیرم تو این گروه")
 
-    if message["from"]["is_bot"] == True:
-        return
+    # if message["from"].get("is_bot", True) == True:
+    #     return
 
     if message["chat"]["type"] == "private" and len(text) > 1:
         for i in db:
