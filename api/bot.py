@@ -81,6 +81,7 @@ def webhook():
     if not message:
         return jsonify(ok=True)
 
+
     class msg: 
         chat_id = message["chat"]["id"]
         id = message["message_id"]
@@ -94,8 +95,8 @@ def webhook():
             if m["is_bot"] and m["username"] == "Mobinmubot":
                 send_message(msg.chat_id, "کیرم تو این گروه")
 
-    
-    if str(msg.mfrom.get("is_bot", "")) == "false":
+
+    if msg.mfrom["is_bot"] == True:
         return
 
     if msg.type == "private" and len(msg.text) > 1:
