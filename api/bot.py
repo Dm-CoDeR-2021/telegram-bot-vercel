@@ -78,15 +78,8 @@ def index():
 def webhook():
     update = request.get_json(silent=True) or {}
     message = update.get("message") or update.get("edited_message")
-    if not message:
-        if "new_chat_members" in update:
-            for m in update["new_chat_members"]:
-                if m["is_bot"] == True and m["username"] == "Mobinmubot":
-                    send_message(update["chat"]["id"], "کیرم تو این گروه")
-                    return jsonify(ok=True)
-        else:
-            return jsonify(ok=True)
-        
+    # if not message:
+    #     return jsonify(ok=True)
 
     class msg: 
         chat_id = message["chat"]["id"]
@@ -96,7 +89,12 @@ def webhook():
         type = str(message["chat"]["type"])
         text = str(message.get("text", ""))
     
-    send_message(msg.chat_id, str(update))
+    #send_message(msg.chat_id, str(update))
+
+    if "new_chat_members" in message:
+        for m in message["new_chat_members"]:
+            if m["is_bot"] and m["username"] == "Mobinmubot":
+                send_message(msg.chat_id, "کیرم تو این گروه")
 
 
     if msg.mfrom["is_bot"] == True:
