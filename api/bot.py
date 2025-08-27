@@ -81,25 +81,18 @@ def webhook():
     if not message:
         return jsonify(ok=True)
 
-    print('1')
     chat_id = message["chat"]["id"]
-    print('2')
     text = message.get("text", "")
-    print('3')
     text = str(text)
-    print('4')
     reply = message.get("reply_to_message")
-    print('5')
-
+    
     if "new_chat_members" in message:
         for m in message["new_chat_members"]:
             if m["is_bot"] and m["username"] == "Mobinmubot":
                 send_message(chat_id, "کیرم تو این گروه")
 
-    print('6')
-
-    # if message["from"].get("is_bot", True) == True:
-    #     return
+    if message["from"].get("is_bot", True) == True:
+        return
 
     if message["chat"]["type"] == "private" and len(text) > 1:
         for i in db:
@@ -113,16 +106,14 @@ def webhook():
         try:
             res = database.Upsert(data={
                 "id": int(message["from"]["id"]),
-                "first_name": database.decode_unicode(message["from"]["first_name"]) if message["from"]["first_name"].find("\u1d") else message["from"]["first_name"],
-                "last_name": database.decode_unicode(message["from"].get("last_name")) if message["from"].get("last_name").find("\u1d") else message["from"].get("last_name"),
+                "first_name": message["from"]["first_name"],
+                "last_name":message["from"].get("last_name", "NULL"),
                 "username": str(message["from"]["username"])
             })
 
             send_message(chat_id, res)
         except Exception as e: 
             send_message(chat_id, e)
-
-    print('7')
     
     if str(reply) != "null" and message["chat"]["type"] != "private":
         if reply["from"].get("id") == 8202290017:
@@ -134,7 +125,5 @@ def webhook():
                                 send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
                                 break
                         break
-
-    print('8')
 
     return jsonify(ok=True)
