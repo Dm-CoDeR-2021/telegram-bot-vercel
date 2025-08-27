@@ -84,7 +84,7 @@ def webhook():
     text = str(text)
     reply = message.get("reply_to_message")
 
-    if message:
+    if message :
         for i in db:
             for _i in i["key"]:
                 if text.find(_i) != -1:
