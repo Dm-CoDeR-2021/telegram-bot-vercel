@@ -3,6 +3,7 @@ import os
 import requests
 import random
 import json
+import db as database
 
 db = []
 last_random = 0
@@ -83,6 +84,7 @@ def webhook():
     text = str(text)
     reply = message.get("reply_to_message")
 
+    send_message(chat_id, message["chat"]["type"])
         
     if message["chat"]["type"] == "private":
         for i in db:

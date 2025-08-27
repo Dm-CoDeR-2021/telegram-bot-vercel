@@ -70,6 +70,22 @@ def Upsert(table = "users", data = {}) -> int:
     except:
         return -1
     
+
+def Select(table = "users", eq = "id", eq_value = 0) -> int:
+    try:
+        db = Connect()
+
+        response = (
+            db.table(table)
+            .select("*")
+            .eq(eq, eq_value)
+            .execute()
+        )
+
+        return response
+    except:
+        return -1
+    
 def Delete(table = "users", eq = "id", eq_value = 0) -> int:
     try:
         db = Connect()
