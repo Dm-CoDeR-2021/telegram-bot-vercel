@@ -3,7 +3,7 @@ import os
 import requests
 import random
 import json
-#import db as database
+import db as database
 
 db = []
 last_random = 0
