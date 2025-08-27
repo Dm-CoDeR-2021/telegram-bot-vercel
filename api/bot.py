@@ -81,10 +81,9 @@ def webhook():
     if not message:
         return jsonify(ok=True)
 
-
     class msg: 
         chat_id = message["chat"]["id"]
-        id = message["message_id"]
+        id = message.get("message_id","")
         mfrom = message["from"]
         reply = message.get("reply_to_message")
         type = str(message["chat"]["type"])
@@ -111,9 +110,9 @@ def webhook():
         try:
             res = database.Upsert(data={
                 "id": msg.mfrom["id"],
-                "first_name": str(msg.mfrom["from"]["first_name"]),
-                "last_name": str(msg.mfrom["from"].get("last_name", "NULL")),
-                "username": str(msg.mfrom["from"]["username"])
+                "first_name": str(msg.mfrom["first_name"]),
+                "last_name": str(msg.mfrom.get("last_name", "NULL")),
+                "username": str(msg.mfrom["username"])
             })
 
             send_message(msg.chat_id, res)
