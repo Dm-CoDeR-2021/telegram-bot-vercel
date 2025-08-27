@@ -106,8 +106,8 @@ def webhook():
         
         res = database.Upsert(data={
             "id": int(message["from"]["id"]),
-            "first_name": database.decode_unicode(str(message["from"]["first_name"])) if str(message["from"]["first_name"]).find(r"\u1d") else str(message["from"]["first_name"]),
-            "last_name": database.decode_unicode(str(message["from"].get("last_name"))) if str(message["from"].get("last_name")).find(r"\u1d") else str(message["from"].get("last_name")),
+            "first_name": database.decode_unicode(message["from"]["first_name"]) if message["from"]["first_name"].find("\u1d") else message["from"]["first_name"],
+            "last_name": database.decode_unicodemessage(["from"].get("last_name")) if message["from"].get("last_name").find("\u1d") else message["from"].get("last_name"),
             "username": str(message["from"]["username"])
         })
         send_message(chat_id, res)
