@@ -78,8 +78,8 @@ def index():
 def webhook():
     update = request.get_json(silent=True) or {}
     message = update.get("message") or update.get("edited_message")
-    if not message:
-        return jsonify(ok=True)
+    # if not message:
+    #     return jsonify(ok=True)
 
     class msg: 
         chat_id = message["chat"]["id"]
@@ -100,36 +100,36 @@ def webhook():
     if msg.mfrom["is_bot"] == True:
         return
 
-    if msg.type == "private" and len(msg.text) > 1:
-        for i in db:
-            for _i in i["key"]:
-                if msg.text.find(_i) != -1:
-                    for __i in i["msg"]:
-                        if msg.text.find(__i) != -1:
-                            send_reply(msg.chat_id, msg.id, i[f"answer{getRandomNumber(1,len(i)-1)}"])
-                            break
-                    break
-        try:
-            res = database.Upsert(data={
-                "id": msg.mfrom["id"],
-                "first_name": str(msg.mfrom["first_name"]),
-                "last_name": str(msg.mfrom.get("last_name", "NULL")),
-                "username": str(msg.mfrom["username"])
-            })
+    # if msg.type == "private" and len(msg.text) > 1:
+    #     for i in db:
+    #         for _i in i["key"]:
+    #             if msg.text.find(_i) != -1:
+    #                 for __i in i["msg"]:
+    #                     if msg.text.find(__i) != -1:
+    #                         send_reply(msg.chat_id, msg.id, i[f"answer{getRandomNumber(1,len(i)-1)}"])
+    #                         break
+    #                 break
+    #     try:
+    #         res = database.Upsert(data={
+    #             "id": msg.mfrom["id"],
+    #             "first_name": str(msg.mfrom["first_name"]),
+    #             "last_name": str(msg.mfrom.get("last_name", "NULL")),
+    #             "username": str(msg.mfrom["username"])
+    #         })
 
-            send_message(msg.chat_id, res)
-        except Exception as e: 
-            send_message(msg.chat_id, e)
+    #         send_message(msg.chat_id, res)
+    #     except Exception as e: 
+    #         send_message(msg.chat_id, e)
     
-    if str(msg.reply) != "null" and message["chat"]["type"] != "private":
-        if msg.reply["from"].get("id") == 8202290017:
-            for i in db:
-                for _i in i["key"]:
-                    if msg.text.find(_i) != -1:
-                        for __i in i["msg"]:
-                            if msg.text.find(__i) != -1:
-                                send_reply(msg.chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
-                                break
-                        break
+    # if str(msg.reply) != "null" and message["chat"]["type"] != "private":
+    #     if msg.reply["from"].get("id") == 8202290017:
+    #         for i in db:
+    #             for _i in i["key"]:
+    #                 if msg.text.find(_i) != -1:
+    #                     for __i in i["msg"]:
+    #                         if msg.text.find(__i) != -1:
+    #                             send_reply(msg.chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
+    #                             break
+    #                     break
 
     return jsonify(ok=True)
