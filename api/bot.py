@@ -85,8 +85,13 @@ def webhook():
     text = message.get("text", "")
     text = str(text)
     reply = message.get("reply_to_message")
+        
+    if "new_chat_members" in message:
+        for m in message["new_chat_members"]:
+            if m["is_bot"] and m["username"] == "Mobinmubot":
+                send_message(chat_id, "کیرم تو این گروه")
 
-    if message["chat"]["type"] == "private":
+    if message["chat"]["type"] == "private" and len(text) > 1:
         for i in db:
             for _i in i["key"]:
                 if text.find(_i) != -1:
@@ -96,16 +101,15 @@ def webhook():
                             break
                     break
         
-        send_message(chat_id, message["from"])
+        res = database.Upsert(data={
+            "id": int(message["from"]["id"]),
+            "first_name": database.decode_unicode(str(message["from"]["first_name"])) if str(message["from"]["first_name"]).find(r"\u1d") else str(message["from"]["first_name"]),
+            "last_name": database.decode_unicode(str(message["from"].get("last_name"))) if str(message["from"].get("last_name")).find(r"\u1d") else str(message["from"].get("last_name")),
+            "username": str(message["from"]["username"])
+        })
+        send_message(chat_id, res)
     
-    
-    if "new_chat_members" in message:
-        for m in message["new_chat_members"]:
-            if m["is_bot"] and m["username"] == "Mobinmubot":
-                send_message(chat_id, "کیرم تو این گروه")
-    
-    if str(reply) != "null" and chat_id != 5859474607:
-        # بررسی اینکه ریپلای روی پیام خود ربات باشه
+    if str(reply) != "null" and message["chat"]["type"] != "private":
         if reply["from"].get("id") == 8202290017:
             for i in db:
                 for _i in i["key"]:
