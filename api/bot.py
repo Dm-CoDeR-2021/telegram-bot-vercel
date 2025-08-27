@@ -110,6 +110,7 @@ def webhook():
                             break
                     break
         try:
+            send_message(msg.chat_id, str(database.Exist(eq="id", eq_value=msg.mfrom["id"])))
             res = database.Upsert(data={
                 "id": msg.mfrom["id"],
                 "first_name": str(msg.mfrom["first_name"]),
@@ -117,7 +118,7 @@ def webhook():
                 "username": str(msg.mfrom["username"])
             })
 
-            send_message(msg.chat_id, res)
+            #send_message(msg.chat_id, str(res))
         except Exception as e: 
             send_message(msg.chat_id, e)
     

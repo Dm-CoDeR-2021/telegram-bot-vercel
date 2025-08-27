@@ -100,7 +100,15 @@ def Delete(table = "users", eq = "id", eq_value = 0) -> int:
     except:
         return -1
 
-
+def Exist(table = "users", eq = "id", eq_value = 0) -> int:
+    try:
+        res = Select(table,eq,eq_value)
+        if res["data"][eq] == eq_value:
+            return 1
+        else:
+            return 0
+    except:
+        return -1
 
 
 #print(Update(data={"name" : "ali"}))
