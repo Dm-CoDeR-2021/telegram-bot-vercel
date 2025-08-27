@@ -89,7 +89,7 @@ def webhook():
         type = str(message["chat"]["type"])
         text = str(message.get("text", ""))
     
-    send_message(msg.chat_id, message)
+    send_message(msg.chat_id, update)
 
     if "new_chat_members" in message:
         for m in message["new_chat_members"]:
