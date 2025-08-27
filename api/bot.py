@@ -4,7 +4,6 @@ import requests
 import random
 import json
 
-
 db = []
 last_random = 0
 
