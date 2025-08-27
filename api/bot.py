@@ -93,6 +93,8 @@ def webhook():
                             send_reply(chat_id, message["message_id"], i[f"answer{getRandomNumber(1,len(i)-1)}"])
                             break
                     break
+        
+        send_message(chat_id, message["from"])
     
     
     if "new_chat_members" in message:
