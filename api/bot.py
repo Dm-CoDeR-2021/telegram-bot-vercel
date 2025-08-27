@@ -86,9 +86,7 @@ def webhook():
     text = str(text)
     reply = message.get("reply_to_message")
 
-    send_message(chat_id, message["chat"])
-
-    if message["chat"]["type"] == "priavte":
+    if message["chat"]["type"] == "private":
         for i in db:
             for _i in i["key"]:
                 if text.find(_i) != -1:
