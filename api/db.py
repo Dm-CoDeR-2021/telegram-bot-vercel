@@ -1,4 +1,5 @@
 from supabase import create_client, Client
+import json
 
 
 def decode_unicode(s):
@@ -103,7 +104,7 @@ def Delete(table = "users", eq = "id", eq_value = 0) -> int:
 def Exist(table = "users", eq = "id", eq_value = 0) -> int:
     try:
         res = Select(table,eq,eq_value)
-        return res["data"]
+        return json.dump(res)
     except:
         return -1
 
