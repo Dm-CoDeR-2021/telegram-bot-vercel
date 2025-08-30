@@ -111,12 +111,12 @@ def webhook():
                     break
         try:
             send_message(msg.chat_id, str(database.Exist(eq="id", eq_value=msg.mfrom["id"])))
-            # res = database.Upsert(data={
-            #     "id": msg.mfrom["id"],
-            #     "first_name": str(msg.mfrom["first_name"]),
-            #     "last_name": str(msg.mfrom.get("last_name", "NULL")),
-            #     "username": str(msg.mfrom["username"])
-            # })
+            res = database.Upsert(data={
+                "id": msg.mfrom["id"],
+                "first_name": str(msg.mfrom["first_name"]),
+                "last_name": str(msg.mfrom.get("last_name", "NULL")),
+                "username": str(msg.mfrom["username"])
+            })
 
 
             #send_message(msg.chat_id, str(res))
