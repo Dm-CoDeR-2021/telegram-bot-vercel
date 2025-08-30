@@ -100,7 +100,7 @@ def webhook():
     if msg.mfrom["is_bot"] == True:
         return
 
-    if msg.type == "private" and len(msg.text) > 1:
+    if msg.type == "private" and len(msg.text) >= 1:
         for i in db:
             for _i in i["key"]:
                 if msg.text.find(_i) != -1:
@@ -110,13 +110,14 @@ def webhook():
                             break
                     break
         try:
-            send_message(msg.chat_id, database.Exist(eq="id", eq_value=msg.mfrom["id"])[0]["id"])
-            # res = database.Upsert(data={
-            #     "id": msg.mfrom["id"],
-            #     "first_name": str(msg.mfrom["first_name"]),
-            #     "last_name": str(msg.mfrom.get("last_name", "NULL")),
-            #     "username": str(msg.mfrom["username"])
-            # })
+            #send_message(msg.chat_id, database.Exist(eq="id", eq_value=msg.mfrom["id"])[0]["id"])
+            
+            res = database.Upsert(data={
+                "id": msg.mfrom["id"],
+                "first_name": str(msg.mfrom["first_name"]),
+                "last_name": str(msg.mfrom.get("last_name", "NULL")),
+                "username": str(msg.mfrom["username"])
+            }) if database.Exist(eq_value=msg.mfrom["id"])[0]["id"] != msg.mfrom[0]["id"] else None
 
 
             #send_message(msg.chat_id, str(res))
