@@ -82,7 +82,7 @@ def Select(table = "users", eq = "id", eq_value = 0) -> int:
             .execute()
         )
 
-        return response.data
+        return response
     except:
         return -1
     
