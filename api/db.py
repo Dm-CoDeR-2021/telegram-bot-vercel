@@ -82,7 +82,7 @@ def Select(table = "users", eq = "id", eq_value = 0) -> int:
             .execute()
         )
 
-        return response
+        return response.data
     except:
         return -1
     
@@ -103,8 +103,8 @@ def Delete(table = "users", eq = "id", eq_value = 0) -> int:
 
 def Exist(table = "users", eq = "id", eq_value = 0) -> int:
     try:
-        res = Select(table,eq,eq_value)
-        return res.data
+        response = Select(table,eq,eq_value)
+        return response.data
     except:
         return -1
 
