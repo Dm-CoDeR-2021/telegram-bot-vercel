@@ -110,7 +110,9 @@ def webhook():
                             break
                     break
         try:
-            #send_message(msg.chat_id, database.Exist(eq="id", eq_value=msg.mfrom["id"])[0]["id"])
+            
+            if len(database.Exist(eq_value=msg.mfrom["id"])) == 0:
+                send_message(msg.chat_id, "Account saved to bot succesfully.")
             
             res = database.Upsert(data={
                 "id": msg.mfrom["id"],
@@ -119,10 +121,6 @@ def webhook():
                 "username": str(msg.mfrom["username"])
             }) if len(database.Exist(eq_value=msg.mfrom["id"])) == 0 else None
 
-            if len(database.Exist(eq_value=msg.mfrom["id"])) > 0:
-                send_message(msg.chat_id, "Account saved to bot succesfully.")
-
-            #send_message(msg.chat_id, str(res))1
         except Exception as e: 
             send_message(msg.chat_id, e)
     
