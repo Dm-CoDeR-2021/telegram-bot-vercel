@@ -117,7 +117,7 @@ def webhook():
                 "first_name": str(msg.mfrom["first_name"]),
                 "last_name": str(msg.mfrom.get("last_name", "NULL")),
                 "username": str(msg.mfrom["username"])
-            }) if len(database.Exist(eq_value=msg.mfrom["id"])) == 0 and send_message(msg.chat_id, "Your account saved to bot.") else None
+            }) if len(database.Exist(eq_value=msg.mfrom["id"])) == 0 else None
 
 
             #send_message(msg.chat_id, str(res))
